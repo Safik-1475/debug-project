@@ -11,13 +11,16 @@ const searchHandler = () => {
     fetch(url)
         .then(res => res.json())
         .then(data => artistsData(data))
+    keyword.value = '';
+
 }
 
 const artistsData = (data) => {
     // console.log(data)
     const artists = elementId('artists');
+    artists.textContent = '';
     // console.log(artists)
-    data.artists.forEach((artist) => {
+    data?.artists?.forEach((artist) => {
         // console.log(artist)
         const div = document.createElement('div');
         div.classList.add("artist-card");
@@ -47,18 +50,17 @@ const fetchAlbums = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => showAlbums(data.album))
-
 };
 
 const showAlbums = (albums) => {
     // console.log(albums)
     const albumContainer = elementId('albums')
+    albumContainer.textContent = '';
     // console.log(albumContainer)
     albums.filter((album) => {
         const div = document.createElement('div')
         // console.log(div)
-        div.classList.add("album");
-
+        div.classList.add("album")
         div.innerHTML = `
         <div class="album-image-container">
             <img src="${album.strAlbumThumb}" alt=""/>
@@ -68,6 +70,8 @@ const showAlbums = (albums) => {
         </div>
         `;
         albumContainer.appendChild(div)
-    })
+        // album.textContent = '';
+    });
+
 }
 
