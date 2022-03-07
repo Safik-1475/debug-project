@@ -39,3 +39,35 @@ const artistsData = (data) => {
         artists.appendChild(div)
     });
 };
+
+const fetchAlbums = (id) => {
+    // console.log(id)
+    const url = (`https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`)
+    // console.log(url)
+    fetch(url)
+        .then(res => res.json())
+        .then(data => showAlbums(data.album))
+
+};
+
+const showAlbums = (albums) => {
+    // console.log(albums)
+    const albumContainer = elementId('albums')
+    // console.log(albumContainer)
+    albums.filter((album) => {
+        const div = document.createElement('div')
+        // console.log(div)
+        div.classList.add("album");
+
+        div.innerHTML = `
+        <div class="album-image-container">
+            <img src="${album.strAlbumThumb}" alt=""/>
+        </div>
+        <div class="album-name">
+            <h3>${album.strAlbum}</h3>
+        </div>
+        `;
+        albumContainer.appendChild(div)
+    })
+}
+
